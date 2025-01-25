@@ -1,0 +1,25 @@
+{
+  "customers": [
+    {
+      "id": 1,
+      "name": "Cynthia Hart",
+      "email": "c.hart@sample.com",
+      "phone_number": "111-123-1234",
+      "current_address": "908 Test St. Austin, TX 78749"
+    },
+    {
+      "id": 2,
+      "name": "Russell Jackson",
+      "email": "r.jackson@sample.com",
+      "phone_number": "999-999-9999",
+      "current_address": "123 Test St. Atlanta, GA 30301"
+    },
+    {
+      "id": 3,
+      "name": "Michelle Jones",
+      "email": "michelle.jones@sample.com",
+      "phone_number": "111-111-1111",
+      "current_address": "413 Testing St. Austin, TX 78703"
+    }
+  ]
+}

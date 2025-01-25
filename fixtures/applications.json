@@ -1,0 +1,25 @@
+{
+  "applications": [
+    {
+      "id": 1,
+      "customer_id": 1,
+      "purchasing_address": "111 Purchase St. Austin, TX 78739",
+      "application_approved": false,
+      "agent": 1
+    },
+    {
+      "id": 2,
+      "customer_id": 2,
+      "purchasing_address": "355 Purchase St. Athens, GA 30304",
+      "application_approved": true,
+      "agent": 2
+    },
+    {
+      "id": 3,
+      "customer_id": 3,
+      "current_address": "123 Purchasing St. Denver, CO 80014",
+      "application_approved": true,
+      "agent": 3
+    }
+  ]
+}
