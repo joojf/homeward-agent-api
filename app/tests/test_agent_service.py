@@ -1,5 +1,6 @@
 import pytest
 from fastapi import HTTPException
+from sqlalchemy.exc import SQLAlchemyError
 
 from app.models import Application, Customer
 from app.schemas import AgentCreate, AgentUpdate
@@ -9,6 +10,18 @@ from app.services.agent_service import AgentService
 def test_get_all_agents_empty(db_session):
     agents = AgentService.get_all_agents(db_session)
     assert len(agents) == 0
+
+
+def test_get_all_agents_db_error(db_session, monkeypatch):
+    def mock_query(*args, **kwargs):
+        raise SQLAlchemyError("Test database error")
+
+    monkeypatch.setattr(db_session, "query", mock_query)
+
+    with pytest.raises(HTTPException) as exc_info:
+        AgentService.get_all_agents(db_session)
+    assert exc_info.value.status_code == 500
+    assert "Database error occurred while fetching agents" in str(exc_info.value.detail)
 
 
 def test_create_agent(db_session, sample_agent_data):
@@ -31,6 +44,19 @@ def test_create_duplicate_agent(db_session, sample_agent_data):
     assert "already exists" in str(exc_info.value.detail)
 
 
+def test_create_agent_db_error(db_session, sample_agent_data, monkeypatch):
+    def mock_add(*args, **kwargs):
+        raise SQLAlchemyError("Test database error")
+
+    monkeypatch.setattr(db_session, "add", mock_add)
+
+    agent_data = AgentCreate(**sample_agent_data)
+    with pytest.raises(HTTPException) as exc_info:
+        AgentService.create_agent(db_session, agent_data)
+    assert exc_info.value.status_code == 500
+    assert "Database error occurred while creating agent" in str(exc_info.value.detail)
+
+
 def test_get_agent(db_session, sample_agent_data):
     agent_data = AgentCreate(**sample_agent_data)
     created_agent = AgentService.create_agent(db_session, agent_data)
@@ -45,6 +71,18 @@ def test_get_nonexistent_agent(db_session):
         AgentService.get_agent(db_session, 999)
     assert exc_info.value.status_code == 404
     assert "not found" in str(exc_info.value.detail)
+
+
+def test_get_agent_db_error(db_session, monkeypatch):
+    def mock_query(*args, **kwargs):
+        raise SQLAlchemyError("Test database error")
+
+    monkeypatch.setattr(db_session, "query", mock_query)
+
+    with pytest.raises(HTTPException) as exc_info:
+        AgentService.get_agent(db_session, 1)
+    assert exc_info.value.status_code == 500
+    assert "Database error occurred while fetching agent" in str(exc_info.value.detail)
 
 
 def test_update_agent(db_session, sample_agent_data):
@@ -65,6 +103,22 @@ def test_update_nonexistent_agent(db_session):
         AgentService.update_agent(db_session, 999, update_data)
     assert exc_info.value.status_code == 404
     assert "not found" in str(exc_info.value.detail)
+
+
+def test_update_agent_db_error(db_session, sample_agent_data, monkeypatch):
+    agent_data = AgentCreate(**sample_agent_data)
+    created_agent = AgentService.create_agent(db_session, agent_data)
+
+    def mock_commit(*args, **kwargs):
+        raise SQLAlchemyError("Test database error")
+
+    monkeypatch.setattr(db_session, "commit", mock_commit)
+
+    update_data = AgentUpdate(name="Updated Name")
+    with pytest.raises(HTTPException) as exc_info:
+        AgentService.update_agent(db_session, created_agent.id, update_data)
+    assert exc_info.value.status_code == 500
+    assert "Database error occurred while updating agent" in str(exc_info.value.detail)
 
 
 def test_get_agent_with_customer_connection(db_session, sample_agent_data, sample_customer_data):
