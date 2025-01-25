@@ -6,7 +6,7 @@ from app import models, schemas
 class AgentService:
     @staticmethod
     def get_all_agents(db: Session):
-        return db.query(models.Agent).all()
+        return db.query(models.Agent).order_by(models.Agent.id).all()
 
     @staticmethod
     def get_agent(db: Session, agent_id: int, customer_id: int = None):
