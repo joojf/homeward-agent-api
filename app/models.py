@@ -27,6 +27,5 @@ class Application(Base):
     id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
     purchasing_address = Column(String, nullable=True)
-    current_address = Column(String, nullable=True)
     application_approved = Column(Boolean, default=False)
     agent_id = Column(Integer, ForeignKey('agents.id'), nullable=False)

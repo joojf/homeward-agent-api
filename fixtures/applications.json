@@ -17,9 +17,58 @@
     {
       "id": 3,
       "customer_id": 3,
-      "current_address": "123 Purchasing St. Denver, CO 80014",
+      "purchasing_address": "123 Purchasing St. Denver, CO 80014",
       "application_approved": true,
       "agent": 3
+    },
+    {
+      "id": 4,
+      "customer_id": 4,
+      "purchasing_address": "3300 Purchase Blvd. Austin, TX 78703",
+      "application_approved": true,
+      "agent": 4
+    },
+    {
+      "id": 5,
+      "customer_id": 5,
+      "purchasing_address": "2200 Purchase Rd. Atlanta, GA 30305",
+      "application_approved": false,
+      "agent": 5
+    },
+    {
+      "id": 6,
+      "customer_id": 6,
+      "purchasing_address": "1850 Purchase St. Denver, CO 80202",
+      "application_approved": true,
+      "agent": 6
+    },
+    {
+      "id": 7,
+      "customer_id": 7,
+      "purchasing_address": "4800 Purchase Springs Rd. Austin, TX 78759",
+      "application_approved": true,
+      "agent": 7
+    },
+    {
+      "id": 8,
+      "customer_id": 8,
+      "purchasing_address": "1280 Purchase St. Atlanta, GA 30309",
+      "application_approved": false,
+      "agent": 8
+    },
+    {
+      "id": 9,
+      "customer_id": 9,
+      "purchasing_address": "3200 Purchase Blvd. Denver, CO 80216",
+      "application_approved": true,
+      "agent": 9
+    },
+    {
+      "id": 10,
+      "customer_id": 10,
+      "purchasing_address": "5701 W Purchase Ln. Austin, TX 78749",
+      "application_approved": true,
+      "agent": 10
     }
   ]
 }

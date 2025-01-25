@@ -37,7 +37,6 @@ def seed():
             record = {
                 "customer_id": app["customer_id"],
                 "purchasing_address": app.get("purchasing_address"),
-                "current_address": app.get("current_address"),
                 "application_approved": app["application_approved"],
                 "agent_id": app["agent"]
             }
