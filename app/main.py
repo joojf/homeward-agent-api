@@ -11,10 +11,12 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="Homeward Agent API with Postgres")
 
+api_v1 = FastAPI(title="Homeward Agent API v1")
 
-@app.get("/")
+@api_v1.get("/")
 def root():
-    return {"message": "Welcome to the Agent API!"}
+    return {"message": "Welcome to the Agent API"}
 
+api_v1.include_router(agents_router)
 
-app.include_router(agents_router)
+app.mount("/api/v1", api_v1)
