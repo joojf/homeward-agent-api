@@ -18,14 +18,16 @@ def seed():
     with open("fixtures/agents.json", "r") as f:
         agents_data = json.load(f)["agents"]
         for a in agents_data:
-            agent = Agent(**a)
+            agent_data = {k: v for k, v in a.items() if k != 'id'}
+            agent = Agent(**agent_data)
             db.add(agent)
     db.commit()
 
     with open("fixtures/customers.json", "r") as f:
         cust_data = json.load(f)["customers"]
         for c in cust_data:
-            customer = Customer(**c)
+            customer_data = {k: v for k, v in c.items() if k != 'id'}
+            customer = Customer(**customer_data)
             db.add(customer)
     db.commit()
 
@@ -33,7 +35,6 @@ def seed():
         apps_data = json.load(f)["applications"]
         for app in apps_data:
             record = {
-                "id": app["id"],
                 "customer_id": app["customer_id"],
                 "purchasing_address": app.get("purchasing_address"),
                 "current_address": app.get("current_address"),

@@ -6,7 +6,7 @@ Base = declarative_base()
 
 class Agent(Base):
     __tablename__ = 'agents'
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     phone_number = Column(String, nullable=True)
@@ -15,7 +15,7 @@ class Agent(Base):
 
 class Customer(Base):
     __tablename__ = 'customers'
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     name = Column(String, nullable=False)
     email = Column(String, unique=True, nullable=False)
     phone_number = Column(String, nullable=True)
@@ -24,7 +24,7 @@ class Customer(Base):
 
 class Application(Base):
     __tablename__ = 'applications'
-    id = Column(Integer, primary_key=True, index=True)
+    id = Column(Integer, primary_key=True, index=True, autoincrement=True)
     customer_id = Column(Integer, ForeignKey('customers.id'), nullable=False)
     purchasing_address = Column(String, nullable=True)
     current_address = Column(String, nullable=True)
