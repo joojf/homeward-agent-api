@@ -1,6 +1,8 @@
-from typing import Any, Dict, Optional
-from fastapi import status
 import uuid
+from typing import Any, Dict, Optional
+
+from fastapi import status
+
 
 class ErrorCode:
     VALIDATION_ERROR = "VALIDATION_ERROR"
@@ -9,13 +11,14 @@ class ErrorCode:
     CUSTOMER_CONNECTION_ERROR = "CUSTOMER_CONNECTION_ERROR"
     INTERNAL_SERVER_ERROR = "INTERNAL_SERVER_ERROR"
 
+
 class BaseAPIException(Exception):
     def __init__(
-        self,
-        message: str,
-        error_code: str,
-        status_code: int = status.HTTP_400_BAD_REQUEST,
-        details: Optional[Dict[str, Any]] = None
+            self,
+            message: str,
+            error_code: str,
+            status_code: int = status.HTTP_400_BAD_REQUEST,
+            details: Optional[Dict[str, Any]] = None
     ):
         self.message = message
         self.error_code = error_code
@@ -37,6 +40,7 @@ class BaseAPIException(Exception):
             error_response["error"]["details"] = self.details
         return error_response
 
+
 class ValidationError(BaseAPIException):
     def __init__(self, message: str, details: Optional[Dict[str, Any]] = None):
         super().__init__(
@@ -46,6 +50,7 @@ class ValidationError(BaseAPIException):
             details=details
         )
 
+
 class AgentNotFoundError(BaseAPIException):
     def __init__(self, agent_id: str):
         super().__init__(
@@ -54,6 +59,7 @@ class AgentNotFoundError(BaseAPIException):
             status_code=status.HTTP_404_NOT_FOUND
         )
 
+
 class DuplicateAgentError(BaseAPIException):
     def __init__(self, identifier: str):
         super().__init__(
@@ -61,6 +67,7 @@ class DuplicateAgentError(BaseAPIException):
             error_code=ErrorCode.AGENT_ALREADY_EXISTS,
             status_code=status.HTTP_409_CONFLICT
         )
+
 
 class AgentCustomerConnectionError(BaseAPIException):
     def __init__(self, agent_id: str, customer_id: str):
