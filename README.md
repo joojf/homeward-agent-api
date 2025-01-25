@@ -23,9 +23,8 @@ You can run it entirely locally, partially in Docker (database only), or fully i
    POSTGRES_HOST=localhost
    POSTGRES_PORT=5432
    DATABASE_URL=postgresql://${POSTGRES_USER}:${POSTGRES_PASSWORD}@${POSTGRES_HOST}:${POSTGRES_PORT}/${POSTGRES_DB}
+   UVICORN_PORT=8000
    ```
-   > If you prefer environment variables directly, set them in your shell or OS environment.  
-   > Example: `export DATABASE_URL="postgresql://fastapi_user:fastapi_password@localhost:5432/fastapi_db"`
 
 5. **Install Python dependencies**:
    ```bash
