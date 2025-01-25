@@ -1,6 +1,6 @@
 from typing import Optional
 
-from pydantic import BaseModel, EmailStr
+from pydantic import BaseModel, EmailStr, ConfigDict
 
 
 class AgentBase(BaseModel):
@@ -15,14 +15,12 @@ class AgentCreate(AgentBase):
 
 
 class AgentUpdate(BaseModel):
-    name: Optional[str]
-    email: Optional[EmailStr]
-    phone_number: Optional[str]
-    location: Optional[str]
+    name: Optional[str] = None
+    email: Optional[EmailStr] = None
+    phone_number: Optional[str] = None
+    location: Optional[str] = None
 
 
 class AgentOut(AgentBase):
     id: int
-
-    class Config:
-        from_attributes = True
+    model_config = ConfigDict(from_attributes=True)
